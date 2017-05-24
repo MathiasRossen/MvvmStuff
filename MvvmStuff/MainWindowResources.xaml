@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MvvmStuff"
+                    xmlns:viewModel="clr-namespace:MvvmStuff.ViewModel"
+                    xmlns:view="clr-namespace:MvvmStuff.View">
+
+    <DataTemplate DataType="{x:Type viewModel:PersonViewModel}">
+        <view:PersonView />
+    </DataTemplate>
+
+    <Style x:Key="MainStyle" TargetType="{x:Type HeaderedContentControl}">
+
+    </Style>
+
+    <DataTemplate x:Key="CommandsTemplate">
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="2,6">
+                        <Hyperlink Command="{Binding Command}">
+                            <TextBlock Text="{Binding DisplayName}" /> 
+                        </Hyperlink>
+                    </TextBlock>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ClosableTabItemTemplate">
+        <DockPanel Width="120">
+            <ContentPresenter Content="{Binding DisplayName}" VerticalAlignment="Center" />
+            <TextBlock HorizontalAlignment="Right">
+                <Hyperlink Command="{Binding CloseCommand}">
+                    <TextBlock Text="X"/>
+                </Hyperlink>
+            </TextBlock>
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="WorkspacesTemplate">
+        <TabControl IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}" ItemTemplate="{StaticResource ClosableTabItemTemplate}" Margin="4" />
+    </DataTemplate>
+
+</ResourceDictionary>
